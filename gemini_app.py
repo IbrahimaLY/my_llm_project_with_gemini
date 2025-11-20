@@ -1,20 +1,19 @@
-# Fichier : gemini_app.py
+# Fichier : gemini_app.py (Vérification avant l'instanciation)
 
-from google import genai
 import os
+from google import genai
 from dotenv import load_dotenv
 
-# Charger les variables d'environnement depuis le fichier .env
 load_dotenv() 
 
-# Le client va chercher automatiquement la clé dans GEMINI_API_KEY
-client = genai.Client() 
+google_api_key = os.getenv('GEMINI_API_KEY')
 
-# Assurez-vous que la clé a été chargée (bonne pratique)
-if not client._client._credentials:
-    print("Erreur : La variable d'environnement GEMINI_API_KEY n'est pas chargée.")
+if not google_api_key:
+    print("❌ Erreur : La variable d'environnement GEMINI_API_KEY n'a pas été trouvée. Vérifiez votre fichier .env.")
 else:
-    print("Clé API chargée avec succès.")
+    print("Clé API trouvée. Instanciation du client.")
+    # Passez la clé explicitement ou laissez genai.Client() la trouver
+    client = genai.Client(api_key=google_api_key) 
     
     response = client.models.generate_content(
         model="gemini-2.5-flash",
