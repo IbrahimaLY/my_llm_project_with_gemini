@@ -1,0 +1,7 @@
+# Fichier : requirements.txt
+
+google-genai
+python-dotenv
+# Dépendances pour l'exécution Jupyter/Markdown
+ipykernel
+jupyter
